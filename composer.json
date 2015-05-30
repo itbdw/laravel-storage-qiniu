@@ -1,7 +1,7 @@
 {
     "name": "itbdw/laravel-storage-qiniu",
     "type": "library",
-    "description": "Qiniu Resource(Cloud) Storage SDK for Laravel5 Upgrade Version",
+    "description": "Qiniu Resource(Cloud) Storage SDK Intergrate with Laravel5",
     "keywords": ["qiniu", "storage", "sdk", "cloud", "laravel", "laravel5"],
     "license": "MIT",
     "authors": [
