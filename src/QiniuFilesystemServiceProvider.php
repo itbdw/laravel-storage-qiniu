@@ -13,12 +13,10 @@ use itbdw\QiniuStorage\Plugins\UploadToken;
 
 class QiniuFilesystemServiceProvider extends ServiceProvider {
 
-    public function boot()
-    {
+    public function boot() {
         \Storage::extend(
             'qiniu',
-            function ($app, $config)
-            {
+            function ($app, $config) {
                 $qiniu_adapter = new QiniuAdapter(
                     $config['access_key'],
                     $config['secret_key'],
@@ -40,8 +38,7 @@ class QiniuFilesystemServiceProvider extends ServiceProvider {
         );
     }
 
-    public function register()
-    {
+    public function register() {
         //
     }
 }

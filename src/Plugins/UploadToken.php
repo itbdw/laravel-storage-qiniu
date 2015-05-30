@@ -15,6 +15,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 得到公有资源下载地址 <br>
  * $disk        = \Storage::disk('qiniu'); <br>
  * $re          = $disk->getDriver()->uploadToken('foo/bar1.css'); <br>
+ *
  * @package itbdw\QiniuStorage\Plugins
  */
 class UploadToken extends AbstractPlugin {
@@ -24,13 +25,11 @@ class UploadToken extends AbstractPlugin {
      *
      * @return string
      */
-    public function getMethod()
-    {
+    public function getMethod() {
         return 'uploadToken';
     }
 
-    public function handle($path = null, $expires = 3600, $policy = null, $strictPolicy = true)
-    {
+    public function handle($path = null, $expires = 3600, $policy = null, $strictPolicy = true) {
         return $this->filesystem->getAdapter()->uploadToken($path, $expires, $policy, $strictPolicy);
     }
 }

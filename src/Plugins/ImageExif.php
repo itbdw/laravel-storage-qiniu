@@ -15,6 +15,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 查看图像EXIF <br>
  * $disk        = \Storage::disk('qiniu'); <br>
  * $re          = $disk->getDriver()->imageExif('foo/bar1.css'); <br>
+ *
  * @package itbdw\QiniuStorage\Plugins
  */
 class ImageExif extends AbstractPlugin {
@@ -24,13 +25,11 @@ class ImageExif extends AbstractPlugin {
      *
      * @return string
      */
-    public function getMethod()
-    {
+    public function getMethod() {
         return 'imageExif';
     }
 
-    public function handle($path = null)
-    {
+    public function handle($path = null) {
         return $this->filesystem->getAdapter()->imageExif($path);
     }
 }

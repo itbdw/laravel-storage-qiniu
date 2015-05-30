@@ -1,12 +1,3 @@
 .idea
-*.phar
-*.zip
-build/artifacts
-phpunit.xml
-phpunit.functional.xml
 .DS_Store
-.swp
-.build
 composer.lock
-vendor
-src/package.xml

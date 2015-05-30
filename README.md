@@ -1,6 +1,7 @@
 # Laravel5 七牛存储组件（使用官方SDK）
 
-## 无需手动引入七牛sdk
+这个包是在七牛官方 PHP-SDK 的基础上再次做的封装，使其符合 Laravel 中操作文件的规范，因此可高度信赖。
+
 
 ## 声明
  - 该 repo 是基于 https://github.com/zgldh/qiniu-laravel-storage 做的。

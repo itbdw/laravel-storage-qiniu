@@ -15,6 +15,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 查看图像属性 <br>
  * $disk        = \Storage::disk('qiniu'); <br>
  * $re          = $disk->getDriver()->imageInfo('foo/bar1.css'); <br>
+ *
  * @package itbdw\QiniuStorage\Plugins
  */
 class ImageInfo extends AbstractPlugin {
@@ -24,13 +25,11 @@ class ImageInfo extends AbstractPlugin {
      *
      * @return string
      */
-    public function getMethod()
-    {
+    public function getMethod() {
         return 'imageInfo';
     }
 
-    public function handle($path = null)
-    {
+    public function handle($path = null) {
         return $this->filesystem->getAdapter()->imageInfo($path);
     }
 }

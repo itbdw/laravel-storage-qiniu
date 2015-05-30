@@ -15,6 +15,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 得到公有资源下载地址 <br>
  * $disk        = \Storage::disk('qiniu'); <br>
  * $re          = $disk->getDriver()->downloadUrl('foo/bar1.css'); <br>
+ *
  * @package itbdw\QiniuStorage\Plugins
  */
 class DownloadUrl extends AbstractPlugin {
@@ -24,13 +25,11 @@ class DownloadUrl extends AbstractPlugin {
      *
      * @return string
      */
-    public function getMethod()
-    {
+    public function getMethod() {
         return 'downloadUrl';
     }
 
-    public function handle($path = null)
-    {
+    public function handle($path = null) {
         $location = $this->filesystem->getAdapter()->downloadUrl($path);
 
         return $location;

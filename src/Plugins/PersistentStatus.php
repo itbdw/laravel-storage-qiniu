@@ -15,6 +15,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 查看图像EXIF <br>
  * $disk        = \Storage::disk('qiniu'); <br>
  * $re          = $disk->getDriver()->persistentStatus('foo/bar1.css'); <br>
+ *
  * @package itbdw\QiniuStorage\Plugins
  */
 class PersistentStatus extends AbstractPlugin {
@@ -24,13 +25,11 @@ class PersistentStatus extends AbstractPlugin {
      *
      * @return string
      */
-    public function getMethod()
-    {
+    public function getMethod() {
         return 'persistentStatus';
     }
 
-    public function handle($id)
-    {
+    public function handle($id) {
         return $this->filesystem->getAdapter()->persistentStatus($id);
     }
 }

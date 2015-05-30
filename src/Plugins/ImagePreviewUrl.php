@@ -15,6 +15,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 查看图像EXIF <br>
  * $disk        = \Storage::disk('qiniu'); <br>
  * $re          = $disk->getDriver()->imagePreviewUrl('foo/bar1.css',$ops); <br>
+ *
  * @package itbdw\QiniuStorage\Plugins
  */
 class ImagePreviewUrl extends AbstractPlugin {
@@ -24,13 +25,11 @@ class ImagePreviewUrl extends AbstractPlugin {
      *
      * @return string
      */
-    public function getMethod()
-    {
+    public function getMethod() {
         return 'imagePreviewUrl';
     }
 
-    public function handle($path = null, $ops = null)
-    {
+    public function handle($path = null, $ops = null) {
         return $this->filesystem->getAdapter()->imagePreviewUrl($path, $ops);
     }
 }
