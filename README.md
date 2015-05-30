@@ -3,7 +3,8 @@
 ## 无需手动引入七牛sdk
 
 ## 声明
-该 repo 来源是 https://github.com/zgldh/qiniu-laravel-storage，原作者基于 https://github.com/qiniu/php-sdk 开发
+该 repo 来源是 https://github.com/zgldh/qiniu-laravel-storage
+原作者基于 https://github.com/qiniu/php-sdk 开发
 
 在原来的基础上，改了一些配置
 
