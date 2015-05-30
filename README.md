@@ -3,12 +3,16 @@
 ## 无需手动引入七牛sdk
 
 ## 声明
-该 repo 来源是 https://github.com/zgldh/qiniu-laravel-storage
-原作者基于 https://github.com/qiniu/php-sdk 开发
+ - 该 repo 是基于 https://github.com/zgldh/qiniu-laravel-storage 做的。
+ - 原项目 https://github.com/qiniu/php-sdk
 
-在原来的基础上，改了一些配置
 
-请先确定哪个是你想要的
+这个repo在原来的基础上，改了一些东西，使大家可以通过 composer 的方式安装包。
+
+## 注意
+由于七牛并不支持所谓的目录，不存在树形结构，因为目录操作基本可以无视。
+
+建议只是用来上传、更新资源就好了，不要做列表展示！
 
 ## 安装
 
@@ -19,7 +23,7 @@
 ```php
 
     'disks' => [
-        ... ,
+
         'qiniu' => [
             'driver' => 'qiniu',
             'domain' => 'xxxxx.com1.z0.glb.clouddn.com',   //你的七牛域名
@@ -31,7 +35,6 @@
     
 ```
 
- - 完成
  
 ## 使用
 
@@ -52,10 +55,13 @@
     $size = $disk->size('file1.jpg');               //取得文件大小
     $time = $disk->lastModified('file1.jpg');       //取得最近修改时间 (UNIX)
     $files = $disk->files($directory);              //取得目录下所有文件
-    $files = $disk->allFiles($directory);               //这个没实现。。。
+    $files = $disk->allFiles($directory);               //取得目录下所有文件，包括子目录
+
+    这三个对七牛来说无意义
     $directories = $disk->directories($directory);      //这个也没实现。。。
     $directories = $disk->allDirectories($directory);   //这个也没实现。。。
     $disk->makeDirectory($directory);               //这个其实没有任何作用
+
     $disk->deleteDirectory($directory);             //删除目录，包括目录下所有子文件子目录
     
     $disk->getDriver()->uploadToken('file.jpg');            //获取上传Token
@@ -88,10 +94,14 @@
     $size = $disk->size('file1.jpg');               //取得文件大小
     $time = $disk->lastModified('file1.jpg');       //取得最近修改时间 (UNIX)
     $files = $disk->files($directory);              //取得目录下所有文件
-    $files = $disk->allFiles($directory);               //这个没实现。。。
+    $files = $disk->allFiles($directory);            //取得目录下所有文件，包括子目录
+
+
+    这三个对七牛来说无意义
     $directories = $disk->directories($directory);      //这个也没实现。。。
     $directories = $disk->allDirectories($directory);   //这个也没实现。。。
     $disk->makeDirectory($directory);               //这个其实没有任何作用
+
     $disk->deleteDirectory($directory);             //删除目录，包括目录下所有子文件子目录
     
     $disk->uploadToken('file.jpg');            //获取上传Token
