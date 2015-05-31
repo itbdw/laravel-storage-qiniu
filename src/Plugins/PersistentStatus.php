@@ -18,18 +18,21 @@ use League\Flysystem\Plugin\AbstractPlugin;
  *
  * @package itbdw\QiniuStorage\Plugins
  */
-class PersistentStatus extends AbstractPlugin {
+class PersistentStatus extends AbstractPlugin
+{
 
     /**
      * Get the method name.
      *
      * @return string
      */
-    public function getMethod() {
+    public function getMethod()
+    {
         return 'persistentStatus';
     }
 
-    public function handle($id) {
+    public function handle($id)
+    {
         return $this->filesystem->getAdapter()->persistentStatus($id);
     }
 }

@@ -13,7 +13,12 @@ use Qiniu\Processing\PersistentFop;
 use Qiniu\Storage\BucketManager;
 use Qiniu\Storage\UploadManager;
 
-class QiniuAdapter extends AbstractAdapter {
+/**
+ * Class QiniuAdapter
+ * @package itbdw\QiniuStorage
+ */
+class QiniuAdapter extends AbstractAdapter
+{
 
     use NotSupportingVisibilityTrait, StreamedWritingTrait, StreamedReadingTrait;
 
@@ -27,15 +32,17 @@ class QiniuAdapter extends AbstractAdapter {
     private $bucket_manager = null;
     private $operation = null;
 
-    public function __construct($access_key, $secret_key, $bucket, $domain) {
+    public function __construct($access_key, $secret_key, $bucket, $domain)
+    {
         $this->access_key = $access_key;
         $this->secret_key = $secret_key;
-        $this->bucket     = $bucket;
-        $this->domain     = $domain;
+        $this->bucket = $bucket;
+        $this->domain = $domain;
         $this->setPathPrefix('http://' . $this->domain);
     }
 
-    private function getAuth() {
+    private function getAuth()
+    {
         if ($this->auth == null) {
             $this->auth = new Auth($this->access_key, $this->secret_key);
         }
@@ -43,7 +50,8 @@ class QiniuAdapter extends AbstractAdapter {
         return $this->auth;
     }
 
-    private function getUploadManager() {
+    private function getUploadManager()
+    {
         if ($this->upload_manager == null) {
             $this->upload_manager = new UploadManager();
         }
@@ -51,7 +59,8 @@ class QiniuAdapter extends AbstractAdapter {
         return $this->upload_manager;
     }
 
-    private function getBucketManager() {
+    private function getBucketManager()
+    {
         if ($this->bucket_manager == null) {
             $this->bucket_manager = new BucketManager($this->getAuth());
         }
@@ -59,7 +68,8 @@ class QiniuAdapter extends AbstractAdapter {
         return $this->bucket_manager;
     }
 
-    private function getOperation() {
+    private function getOperation()
+    {
         if ($this->operation == null) {
             $this->operation = new Operation($this->domain);
         }
@@ -67,7 +77,8 @@ class QiniuAdapter extends AbstractAdapter {
         return $this->operation;
     }
 
-    private function logQiniuError(Error $error) {
+    private function logQiniuError(Error $error)
+    {
         \Log::error('Qiniu: ' . $error->message());
     }
 
@@ -76,16 +87,17 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @param string $path
      * @param string $contents
-     * @param Config $config Config object
+     * @param Config $config   Config object
      *
      * @return array|false false on failure file meta data on success
      */
-    public function write($path, $contents, Config $config) {
-        $auth  = $this->getAuth();
+    public function write($path, $contents, Config $config)
+    {
+        $auth = $this->getAuth();
         $token = $auth->uploadToken($this->bucket, $path);
 
-        $params   = $config->get('params', null);
-        $mime     = $config->get('mime', 'application/octet-stream');
+        $params = $config->get('params', null);
+        $mime = $config->get('mime', 'application/octet-stream');
         $checkCrc = $config->get('checkCrc', false);
 
         $upload_manager = $this->getUploadManager();
@@ -105,11 +117,12 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @param string $path
      * @param string $contents
-     * @param Config $config Config object
+     * @param Config $config   Config object
      *
      * @return array|false false on failure file meta data on success
      */
-    public function update($path, $contents, Config $config) {
+    public function update($path, $contents, Config $config)
+    {
         return $this->write($path, $contents, $config);
     }
 
@@ -121,7 +134,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return bool
      */
-    public function rename($path, $newpath) {
+    public function rename($path, $newpath)
+    {
         $bucketMgr = $this->getBucketManager();
 
         list($ret, $error) = $bucketMgr->move($this->bucket, $path, $this->bucket, $newpath);
@@ -142,7 +156,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return bool
      */
-    public function copy($path, $newpath) {
+    public function copy($path, $newpath)
+    {
         $bucketMgr = $this->getBucketManager();
 
         list($ret, $error) = $bucketMgr->copy($this->bucket, $path, $this->bucket, $newpath);
@@ -162,7 +177,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return bool
      */
-    public function delete($path) {
+    public function delete($path)
+    {
         $bucketMgr = $this->getBucketManager();
 
         $error = $bucketMgr->delete($this->bucket, $path);
@@ -182,7 +198,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return bool
      */
-    public function deleteDir($dirname) {
+    public function deleteDir($dirname)
+    {
         $files = $this->listContents($dirname);
         foreach ($files as $file) {
             $this->delete($file['path']);
@@ -199,7 +216,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|false
      */
-    public function createDir($dirname, Config $config) {
+    public function createDir($dirname, Config $config)
+    {
         return ['path' => $dirname];
     }
 
@@ -210,7 +228,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|bool|null
      */
-    public function has($path) {
+    public function has($path)
+    {
         $meta = $this->getMetadata($path);
         if ($meta) {
             return true;
@@ -226,7 +245,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|false
      */
-    public function read($path) {
+    public function read($path)
+    {
         $location = $this->applyPathPrefix($path);
 
         return array('contents' => file_get_contents($location));
@@ -240,7 +260,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array
      */
-    public function listContents($directory = '', $recursive = false) {
+    public function listContents($directory = '', $recursive = false)
+    {
         $bucketMgr = $this->getBucketManager();
 
         list($items, $marker, $error) = $bucketMgr->listFiles($this->bucket, $directory);
@@ -252,8 +273,8 @@ class QiniuAdapter extends AbstractAdapter {
             $contents = array();
             foreach ($items as $item) {
                 $normalized = [
-                    'type'      => 'file',
-                    'path'      => $item['key'],
+                    'type' => 'file',
+                    'path' => $item['key'],
                     'timestamp' => $item['putTime']
                 ];
 
@@ -275,7 +296,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|false
      */
-    public function getMetadata($path) {
+    public function getMetadata($path)
+    {
         $bucketMgr = $this->getBucketManager();
 
         list($ret, $error) = $bucketMgr->stat($this->bucket, $path);
@@ -295,7 +317,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|false
      */
-    public function getSize($path) {
+    public function getSize($path)
+    {
         $stat = $this->getMetadata($path);
         if ($stat) {
             return array('size' => $stat['fsize']);
@@ -311,7 +334,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|false
      */
-    public function getMimetype($path) {
+    public function getMimetype($path)
+    {
         $stat = $this->getMetadata($path);
         if ($stat) {
             return array('mimetype' => $stat['mimeType']);
@@ -327,7 +351,8 @@ class QiniuAdapter extends AbstractAdapter {
      *
      * @return array|false
      */
-    public function getTimestamp($path) {
+    public function getTimestamp($path)
+    {
         $stat = $this->getMetadata($path);
         if ($stat) {
             return array('timestamp' => $stat['putTime']);
@@ -336,15 +361,17 @@ class QiniuAdapter extends AbstractAdapter {
         return false;
     }
 
-    public function privateDownloadUrl($path) {
-        $auth     = $this->getAuth();
+    public function privateDownloadUrl($path)
+    {
+        $auth = $this->getAuth();
         $location = $this->applyPathPrefix($path);
-        $authUrl  = $auth->privateDownloadUrl($location);
+        $authUrl = $auth->privateDownloadUrl($location);
 
         return $authUrl;
     }
 
-    public function persistentFop($path = null, $fops = null) {
+    public function persistentFop($path = null, $fops = null)
+    {
         $auth = $this->getAuth();
 
         $pfop = New PersistentFop($auth, $this->bucket);
@@ -360,17 +387,20 @@ class QiniuAdapter extends AbstractAdapter {
         }
     }
 
-    public function persistentStatus($id) {
+    public function persistentStatus($id)
+    {
         return PersistentFop::status($id);
     }
 
-    public function downloadUrl($path = null) {
+    public function downloadUrl($path = null)
+    {
         $location = $this->applyPathPrefix($path);
 
         return $location;
     }
 
-    public function imageInfo($path = null) {
+    public function imageInfo($path = null)
+    {
         $operation = $this->getOperation();
 
         list($ret, $error) = $operation->execute($path, 'imageInfo');
@@ -384,7 +414,8 @@ class QiniuAdapter extends AbstractAdapter {
         }
     }
 
-    public function imageExif($path = null) {
+    public function imageExif($path = null)
+    {
         $operation = $this->getOperation();
 
         list($ret, $error) = $operation->execute($path, 'exif');
@@ -398,9 +429,10 @@ class QiniuAdapter extends AbstractAdapter {
         }
     }
 
-    public function imagePreviewUrl($path = null, $ops = null) {
+    public function imagePreviewUrl($path = null, $ops = null)
+    {
         $operation = $this->getOperation();
-        $url       = $operation->buildUrl($path, $ops);
+        $url = $operation->buildUrl($path, $ops);
 
         return $url;
     }

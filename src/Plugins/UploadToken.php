@@ -18,18 +18,21 @@ use League\Flysystem\Plugin\AbstractPlugin;
  *
  * @package itbdw\QiniuStorage\Plugins
  */
-class UploadToken extends AbstractPlugin {
+class UploadToken extends AbstractPlugin
+{
 
     /**
      * Get the method name.
      *
      * @return string
      */
-    public function getMethod() {
+    public function getMethod()
+    {
         return 'uploadToken';
     }
 
-    public function handle($path = null, $expires = 3600, $policy = null, $strictPolicy = true) {
+    public function handle($path = null, $expires = 3600, $policy = null, $strictPolicy = true)
+    {
         return $this->filesystem->getAdapter()->uploadToken($path, $expires, $policy, $strictPolicy);
     }
 }

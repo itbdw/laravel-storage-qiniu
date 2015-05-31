@@ -11,9 +11,15 @@ use itbdw\QiniuStorage\Plugins\PersistentStatus;
 use itbdw\QiniuStorage\Plugins\PrivateDownloadUrl;
 use itbdw\QiniuStorage\Plugins\UploadToken;
 
-class QiniuFilesystemServiceProvider extends ServiceProvider {
+/**
+ * Class QiniuFilesystemServiceProvider
+ * @package itbdw\QiniuStorage
+ */
+class QiniuFilesystemServiceProvider extends ServiceProvider
+{
 
-    public function boot() {
+    public function boot()
+    {
         \Storage::extend(
             'qiniu',
             function ($app, $config) {
@@ -23,7 +29,7 @@ class QiniuFilesystemServiceProvider extends ServiceProvider {
                     $config['bucket'],
                     $config['domain']
                 );
-                $file_system   = new Filesystem($qiniu_adapter);
+                $file_system = new Filesystem($qiniu_adapter);
                 $file_system->addPlugin(new PrivateDownloadUrl());
                 $file_system->addPlugin(new DownloadUrl());
                 $file_system->addPlugin(new ImageInfo());
@@ -38,7 +44,8 @@ class QiniuFilesystemServiceProvider extends ServiceProvider {
         );
     }
 
-    public function register() {
+    public function register()
+    {
         //
     }
 }

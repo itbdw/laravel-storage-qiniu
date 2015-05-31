@@ -18,19 +18,23 @@ use League\Flysystem\Plugin\AbstractPlugin;
  *
  * @package itbdw\QiniuStorage\Plugins
  */
-class PrivateDownloadUrl extends AbstractPlugin {
+class PrivateDownloadUrl extends AbstractPlugin
+{
 
     /**
      * Get the method name.
      *
      * @return string
      */
-    public function getMethod() {
+    public function getMethod()
+    {
         return 'privateDownloadUrl';
     }
 
-    public function handle($path = null) {
+    public function handle($path = null)
+    {
         $adapter = $this->filesystem->getAdapter();
+
         return $adapter->privateDownloadUrl($path);
     }
 }

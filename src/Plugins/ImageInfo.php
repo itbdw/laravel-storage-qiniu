@@ -18,18 +18,21 @@ use League\Flysystem\Plugin\AbstractPlugin;
  *
  * @package itbdw\QiniuStorage\Plugins
  */
-class ImageInfo extends AbstractPlugin {
+class ImageInfo extends AbstractPlugin
+{
 
     /**
      * Get the method name.
      *
      * @return string
      */
-    public function getMethod() {
+    public function getMethod()
+    {
         return 'imageInfo';
     }
 
-    public function handle($path = null) {
+    public function handle($path = null)
+    {
         return $this->filesystem->getAdapter()->imageInfo($path);
     }
 }
