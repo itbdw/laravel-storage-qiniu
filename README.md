@@ -4,11 +4,10 @@
 
 
 ## 声明
- - 该 repo 是基于 https://github.com/zgldh/qiniu-laravel-storage 做的。
- - 原项目 https://github.com/qiniu/php-sdk
-
-
-这个repo在原来的基础上，改了一些东西，使大家可以通过 composer 的方式安装包。
+```
+ 该 repo 是基于 https://github.com/zgldh/qiniu-laravel-storage 改的。
+ 这个repo在原来的基础上，改了一些东西，使大家可以通过 composer 的方式正确的引入该组件和七牛组件。
+```
 
 ## 注意
 由于七牛并不支持所谓的目录，不存在树形结构，因为目录操作基本可以无视。
