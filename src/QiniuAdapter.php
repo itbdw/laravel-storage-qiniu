@@ -79,7 +79,12 @@ class QiniuAdapter extends AbstractAdapter
 
     private function logQiniuError(Error $error)
     {
-        \Log::error('Qiniu: ' . $error->message());
+        //http://developer.qiniu.com/docs/v6/api/reference/codes.html
+        $notLogCode = [612];
+
+        if (!in_array($error->code(), $notLogCode)) {
+            \Log::error('Qiniu: ' . $error->code() . ' ' .  $error->message());
+        }
     }
 
     /**
