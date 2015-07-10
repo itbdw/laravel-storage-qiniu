@@ -66,6 +66,7 @@
     $disk->getDriver()->imagePreviewUrl('file.jpg','imageView2/0/w/100/h/200');              //获取图片预览URL
     $disk->getDriver()->persistentFop('file.flv','avthumb/m3u8/segtime/40/vcodec/libx264/s/320x240');   //执行持久化数据处理
     $disk->getDriver()->persistentStatus($persistent_fop_id);          //查看持久化数据处理的状态。
+    $disk->getDriver()->fetch($url, $key);          //从指定URL抓取资源，并将该资源存储到指定空间中。
 
 ```
 
@@ -106,6 +107,7 @@
     $disk->imagePreviewUrl('file.jpg','imageView2/0/w/100/h/200');              //获取图片预览URL
     $disk->persistentFop('file.flv','avthumb/m3u8/segtime/40/vcodec/libx264/s/320x240');   //执行持久化数据处理
     $disk->persistentStatus($persistent_fop_id);          //查看持久化数据处理的状态。
+    $disk->fetch($url, $key);          //从指定URL抓取资源，并将该资源存储到指定空间中。
 
 ```
 

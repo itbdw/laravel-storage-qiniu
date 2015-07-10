@@ -197,6 +197,26 @@ class QiniuAdapter extends AbstractAdapter
     }
 
     /**
+     * Fetch a file from url.
+     *
+     * @param string $url The specified url.
+     * @param string $key The target filename.
+     *
+     * @return string|false
+     */
+    public function fetch($url, $key)
+    {
+        $bucketMgr = $this->getBucketManager();
+        list($ret, $err) = $bucketMgr->fetch($url, $this->bucket, $key);
+        if ($err !== null) {
+            $this->logQiniuError($err);
+            return false;
+        } else {
+            return $ret['key'];
+        }
+    }
+
+    /**
      * Delete a directory.
      *
      * @param string $dirname

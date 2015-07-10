@@ -157,6 +157,18 @@ class QiniuStorage
     }
 
     /**
+     * 从指定URL抓取资源，并将该资源存储到指定空间中。
+     *
+     * @param string $url
+     * @param string $key
+     * @return string|false
+     */
+    public function fetch($url, $key = '')
+    {
+        return $this->storage->getDriver()->fetch($url, $key);
+    }
+
+    /**
      * 获取上传Token
      *
      * @param  $key
