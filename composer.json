@@ -22,6 +22,12 @@
       "email": "itbudaoweng@gmail.com",
       "role": "Developer",
       "homepage": "http://github.com/itbdw"
+    },
+    {
+      "name": "popfeng",
+      "email": "popfeng@yeah.net",
+      "role": "Developer",
+      "homepage": "http://github.com/popfeng"
     }
   ],
   "require": {
