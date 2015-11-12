@@ -39,7 +39,7 @@
     $disk = \Storage::disk('qiniu');
     $disk->exists('file.jpg');                      //文件是否存在
     $disk->get('file.jpg');                         //获取文件内容
-    $disk->put('file.jpg',$contents);               //上传文件
+    $disk->put('file.jpg',$contents);               //上传文件，$contents 为文件路径或者二进制文件流
     $disk->prepend('file.log', 'Prepended Text');   //附加内容到文件开头
     $disk->append('file.log', 'Appended Text');     //附加内容到文件结尾
     $disk->delete('file.jpg');                      //删除文件
@@ -79,7 +79,7 @@
     $disk = QiniuStorage::disk('qiniu');
     $disk->exists('file.jpg');                      //文件是否存在
     $disk->get('file.jpg');                         //获取文件内容
-    $disk->put('file.jpg',$contents);               //上传文件
+    $disk->put('file.jpg',$contents);               //上传文件，$contents 为文件路径或者二进制文件流
     $disk->prepend('file.log', 'Prepended Text');   //附加内容到文件开头
     $disk->append('file.log', 'Appended Text');     //附加内容到文件结尾
     $disk->delete('file.jpg');                      //删除文件
