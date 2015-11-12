@@ -74,7 +74,7 @@
 
 ```php
 
-    use zgldh\QiniuStorage\QiniuStorage;
+    use itbdw\QiniuStorage\QiniuStorage;
 
     $disk = QiniuStorage::disk('qiniu');
     $disk->exists('file.jpg');                      //文件是否存在
