@@ -93,21 +93,25 @@ class QiniuAdapter extends AbstractAdapter
      * @param string $path
      * @param string $contents
      * @param Config $config   Config object
+     * @param bool $isPutFile
      *
      * @return array|false false on failure file meta data on success
      */
-    public function write($path, $contents, Config $config)
+    public function write($path, $contents, Config $config, $isPutFile = false)
     {
         $auth = $this->getAuth();
         $token = $auth->uploadToken($this->bucket, $path);
-
         $params = $config->get('params', null);
         $mime = $config->get('mime', 'application/octet-stream');
         $checkCrc = $config->get('checkCrc', false);
 
         $upload_manager = $this->getUploadManager();
 
-        list($ret, $error) = $upload_manager->put($token, $path, $contents, $params, $mime, $checkCrc);
+        if ($isPutFile) {
+        	list($ret, $error) = $upload_manager->putFile($token, $path, $contents, $params, $mime, $checkCrc);
+        } else {
+        	list($ret, $error) = $upload_manager->put($token, $path, $contents, $params, $mime, $checkCrc);
+        }
 
         if ($error !== null) {
             $this->logQiniuError($error);
@@ -387,11 +391,11 @@ class QiniuAdapter extends AbstractAdapter
         return false;
     }
 
-    public function privateDownloadUrl($path)
+    public function privateDownloadUrl($path, $expires = 3600)
     {
         $auth = $this->getAuth();
         $location = $this->applyPathPrefix($path);
-        $authUrl = $auth->privateDownloadUrl($location);
+        $authUrl = $auth->privateDownloadUrl($location, $expires);
 
         return $authUrl;
     }

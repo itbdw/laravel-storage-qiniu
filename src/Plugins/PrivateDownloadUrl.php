@@ -31,10 +31,10 @@ class PrivateDownloadUrl extends AbstractPlugin
         return 'privateDownloadUrl';
     }
 
-    public function handle($path = null)
+    public function handle($path = null, $expires = 3600)
     {
         $adapter = $this->filesystem->getAdapter();
 
-        return $adapter->privateDownloadUrl($path);
+        return $adapter->privateDownloadUrl($path, $expires);
     }
 }
