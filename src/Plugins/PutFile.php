@@ -35,9 +35,8 @@ class PutFile extends AbstractPlugin
     public function handle($path, $filePath, array $config = [])
     {
     	$config = new Config($config);
-    	$config->setFallback($this->getConfig());
 
-        $result = $this->filesystem->getAdapter()->putFile($path, $filePath);
+        $result = $this->filesystem->getAdapter()->write($path, $filePath, $config, true);
 
         return $result;
     }
