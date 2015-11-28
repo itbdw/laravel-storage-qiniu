@@ -11,6 +11,7 @@ use itbdw\QiniuStorage\Plugins\PersistentStatus;
 use itbdw\QiniuStorage\Plugins\PrivateDownloadUrl;
 use itbdw\QiniuStorage\Plugins\UploadToken;
 use itbdw\QiniuStorage\Plugins\Fetch;
+use itbdw\QiniuStorage\Plugins\PutFile;
 
 /**
  * Class QiniuFilesystemServiceProvider
@@ -40,6 +41,7 @@ class QiniuFilesystemServiceProvider extends ServiceProvider
                 $file_system->addPlugin(new PersistentStatus());
                 $file_system->addPlugin(new UploadToken());
                 $file_system->addPlugin(new Fetch());
+                $file_system->addPlugin(new PutFile());
 
                 return $file_system;
             }

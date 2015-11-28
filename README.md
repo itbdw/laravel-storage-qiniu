@@ -59,6 +59,7 @@
     $disk->deleteDirectory($directory);             //删除目录，包括目录下所有子文件子目录
     
     $disk->getDriver()->uploadToken('file.jpg');            //获取上传Token
+    $disk->getDriver()->putFile('file.jpg', 'local/filepath');            //上传本地大文件
     $disk->getDriver()->downloadUrl('file.jpg');            //获取下载地址
     $disk->getDriver()->privateDownloadUrl('file.jpg');     //获取私有bucket下载地址
     $disk->getDriver()->imageInfo('file.jpg');              //获取图片信息
@@ -100,6 +101,7 @@
     $disk->deleteDirectory($directory);             //删除目录，包括目录下所有子文件子目录
     
     $disk->uploadToken('file.jpg');            //获取上传Token
+    $disk->putFile('file.jpg', 'local/filepath');            //上传本地大文件
     $disk->downloadUrl('file.jpg');            //获取下载地址
     $disk->privateDownloadUrl('file.jpg');     //获取私有bucket下载地址
     $disk->imageInfo('file.jpg');              //获取图片信息

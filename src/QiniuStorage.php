@@ -58,6 +58,13 @@ class QiniuStorage
     }
 
     /**
+     * 上传大文件
+     */
+    public function putFile($key, $path) {
+    	return $this->storage->getDriver()->putFile($key, $path);
+    }
+
+    /**
      * 附加内容到文件开头
      *
      * @param  $key
@@ -194,11 +201,12 @@ class QiniuStorage
      * 获取私有bucket下载地址
      *
      * @param  $key
+     * @param  $expires
      * @return mixed
      */
-    public function privateDownloadUrl($key)
+    public function privateDownloadUrl($key, $expires = 3600)
     {
-        return $this->storage->getDriver()->privateDownloadUrl($key);
+        return $this->storage->getDriver()->privateDownloadUrl($key, $expires);
     }
 
     /**
