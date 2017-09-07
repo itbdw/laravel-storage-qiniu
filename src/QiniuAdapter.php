@@ -38,7 +38,7 @@ class QiniuAdapter extends AbstractAdapter
         $this->secret_key = $secret_key;
         $this->bucket = $bucket;
         $this->domain = $domain;
-        $this->setPathPrefix('http://' . $this->domain);
+        $this->setPathPrefix(strpos($this->domain, "http") === 0 ? $this->domain : "http://" . $this->domain);
     }
 
     private function getAuth()
