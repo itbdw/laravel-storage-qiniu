@@ -2,11 +2,9 @@
 
 这个包依赖七牛官方 PHP-SDK ，使其符合 Laravel 中操作文件的规范，因此可高度信赖。
 
-
 ## 注意
-由于七牛并不支持所谓的目录，不存在树形结构，因为目录操作基本可以无视。
 
-建议只是用来上传、更新资源就好了，不要做列表展示！
+由于七牛并不支持所谓的目录，不存在树形结构，因为目录操作直接无视。
 
 ## 安装
 
@@ -18,13 +16,24 @@
 
     'disks' => [
 
-        'qiniu' => [
+        // 如果有多个 bucket，增加类似配置即可
+        'qiniu' => [
             'driver' => 'qiniu',
-            'domain' => 'xxxxx.com1.z0.glb.clouddn.com',   //你的七牛域名
-            'access_key'    => '',                          //AccessKey
+            'domain' => 'https://www.example.com',          //你的七牛域名，支持 http 和 https，也可以不带协议，默认 http
+            'access_key'    => '',                          //AccessKey
             'secret_key' => '',                             //SecretKey
             'bucket' => '',                                 //Bucket名字
         ],
+        
+        'qiniu_private' => [
+            'driver' => 'qiniu',
+            'domain' => 'https://www.example.com',          //你的七牛域名，支持 http 和 https，也可以不带协议，默认 http
+            'access_key'    => '',                          //AccessKey
+            'secret_key' => '',                             //SecretKey
+            'bucket' => 'qiniu_private',                    //Bucket名字
+        ],
+        
+        ...
     ],
     
 ```
@@ -46,6 +55,7 @@
     $disk->delete(['file1.jpg', 'file2.jpg']);
     $disk->copy('old/file1.jpg', 'new/file1.jpg');  //复制文件到新的路径
     $disk->move('old/file1.jpg', 'new/file1.jpg');  //移动文件到新的路径
+    
     $size = $disk->size('file1.jpg');               //取得文件大小
     $time = $disk->lastModified('file1.jpg');       //取得最近修改时间 (UNIX)
     $files = $disk->files($directory);              //取得目录下所有文件
@@ -55,7 +65,7 @@
     $directories = $disk->directories($directory);      //这个也没实现。。。
     $directories = $disk->allDirectories($directory);   //这个也没实现。。。
     $disk->makeDirectory($directory);               //这个其实没有任何作用
-
+   
     $disk->deleteDirectory($directory);             //删除目录，包括目录下所有子文件子目录
     
     $disk->getDriver()->uploadToken();            //获取上传Token ,可选'file.jpg'
@@ -87,6 +97,7 @@
     $disk->delete(['file1.jpg', 'file2.jpg']);
     $disk->copy('old/file1.jpg', 'new/file1.jpg');  //复制文件到新的路径
     $disk->move('old/file1.jpg', 'new/file1.jpg');  //移动文件到新的路径
+    
     $size = $disk->size('file1.jpg');               //取得文件大小
     $time = $disk->lastModified('file1.jpg');       //取得最近修改时间 (UNIX)
     $files = $disk->files($directory);              //取得目录下所有文件
@@ -121,6 +132,5 @@
 ## 原作者
  - https://github.com/zgldh/qiniu-laravel-storage
 
-```
- 这个repo在原来的基础上，改了一些东西，使大家可以通过 composer 的方式正确的引入该组件和七牛组件。
-```
+ 最初找到了原作者的项目，使用 composer 安装完，发现完全不对。所以变更了代码，以便可以通过 composer 的方式引入该组件和七牛组件，鉴于有同学也在用这个，而且原项目做的某些变更我不认同，因此保留该项目至今，基本不开发新功能，接受 pr。
+
