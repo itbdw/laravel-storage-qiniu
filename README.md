@@ -1,10 +1,11 @@
 # Laravel5 七牛存储组件（使用官方SDK）
 
-这个包依赖七牛官方 PHP-SDK ，使其符合 Laravel 中操作文件的规范，因此可高度信赖。
+对七牛官方组件再次封装，以简化在 Laravel 中的使用成本。
 
 ## 注意
 
-由于七牛并不支持所谓的目录，不存在树形结构，因为目录操作直接无视。
+ 最初找到了原作者的项目，使用 composer 安装完，发现完全不对。所以变更了代码，以便可以通过 composer 的方式引入该组件和七牛组件，鉴于有同学也在用这个，而且原项目做的某些变更我不认同，因此保留该项目至今，基本不开发新功能，接受 pr。想看原作者项目的请去 https://github.com/zgldh/qiniu-laravel-storage
+
 
 ## 安装
 
@@ -128,9 +129,4 @@
 
  - https://github.com/qiniu/php-sdk
  - http://developer.qiniu.com/docs/v6/sdk/php-sdk.html
-
-## 原作者
- - https://github.com/zgldh/qiniu-laravel-storage
-
- 最初找到了原作者的项目，使用 composer 安装完，发现完全不对。所以变更了代码，以便可以通过 composer 的方式引入该组件和七牛组件，鉴于有同学也在用这个，而且原项目做的某些变更我不认同，因此保留该项目至今，基本不开发新功能，接受 pr。
 
