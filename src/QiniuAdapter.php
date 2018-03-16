@@ -401,12 +401,14 @@ class QiniuAdapter extends AbstractAdapter
     }
 
     public function persistentFop($path = null, $fops = null)
-    {
+    {        
+        
         $auth = $this->getAuth();
 
-        $pfop = New PersistentFop($auth, $this->bucket);
+        $pfop = new PersistentFop($auth);
 
-        list($id, $error) = $pfop->execute($path, $fops);
+        list($id, $error) = $pfop->execute($this->bucket, $path, $fops);
+
 
         if ($error != null) {
             $this->logQiniuError($error);
@@ -418,8 +420,12 @@ class QiniuAdapter extends AbstractAdapter
     }
 
     public function persistentStatus($id)
-    {
-        return PersistentFop::status($id);
+    {        
+        $auth = $this->getAuth();
+
+        $pfop = new PersistentFop($auth);
+
+        return $pfop->status($id);
     }
 
     public function downloadUrl($path = null)
